@@ -189,6 +189,76 @@
         @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 
         #hidden-natsi-form { display: none; }
+
+.rocket-launcher {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    z-index: 9999;
+    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.rocket-icon {
+    font-size: 2.5rem;
+    background: rgba(15, 15, 15, 0.8);
+    border: 2px solid var(--cyan);
+    border-radius: 50%;
+    width: 70px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 20px rgba(0, 242, 254, 0.3);
+    backdrop-filter: blur(5px);
+    transition: all 0.4s ease;
+}
+
+.rocket-text {
+    color: var(--cyan);
+    font-family: 'Courier New', monospace;
+    font-size: 0.7rem;
+    font-weight: bold;
+    margin-top: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-shadow: 0 0 10px #000;
+    opacity: 0.8;
+}
+
+.rocket-launcher:hover {
+    transform: translateY(-15px);
+}
+
+.rocket-launcher:hover .rocket-icon {
+    border-color: var(--purple);
+    box-shadow: 0 15px 30px rgba(157, 80, 187, 0.5);
+    transform: rotate(-15deg);
+}
+
+.rocket-launcher:hover .rocket-text {
+    color: var(--purple);
+    opacity: 1;
+}
+
+@keyframes rocketShake {
+    0%, 100% { transform: translate(0,0); }
+    25% { transform: translate(1px, 1px); }
+    75% { transform: translate(-1px, -1px); }
+}
+
+.rocket-launcher:hover .rocket-icon {
+    animation: rocketShake 0.1s infinite;
+}
+
+@media (max-width: 768px) {
+    .rocket-icon { width: 60px; height: 60px; font-size: 2rem; }
+    .rocket-launcher { bottom: 20px; right: 20px; }
+}
     </style>
 </head>
 <body oncontextmenu="return false;">
@@ -402,6 +472,25 @@
     };
 
     window.addEventListener("scroll", handleScroll);
+
+window.addEventListener('scroll', () => {
+    const rocket = document.querySelector('.rocket-launcher');
+    if (window.scrollY > 200) {
+        rocket.style.opacity = '1';
+        rocket.style.pointerEvents = 'auto';
+        rocket.style.transform = 'scale(1)';
+    } else {
+        rocket.style.opacity = '0';
+        rocket.style.pointerEvents = 'none';
+        rocket.style.transform = 'scale(0.5)';
+    }
+});
 </script>
+
+<a href="https://aula-privada-tecnica.github.io/OPEN-NATSI/" class="rocket-launcher" title="Regresar al núcleo.">
+    <div class="rocket-icon">🚀</div>
+    <span class="rocket-text">Perfíl NATSI</span>
+</a>
+
 </body>
 </html>
